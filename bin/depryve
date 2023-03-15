@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "clipboard"
+
+START = /\A(irb|\[\d+\] pry)/
+
+Clipboard.copy(Clipboard.paste(:primary).lines.select { |ln| ln =~ START }.map do |line|
+  line.gsub(/#{START}[^ ]+ ?/, "")
+end.join)
