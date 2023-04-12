@@ -2,8 +2,12 @@
 
 require "clipboard"
 
-START = /\A(irb|\[\d+\] pry)/
+# Use X11 primary selection by default
+SELECTION = ARGV.first == "-c" ? :clipboard : :primary
 
-Clipboard.copy(Clipboard.paste(:primary).lines.select { |ln| ln =~ START }.map do |line|
-  line.gsub(/#{START}[^ ]+ ?/, "")
+# RegEx to find irb/pry prompt
+PROMPT = /\A(irb|\[\d+\] pry)/
+
+Clipboard.copy(Clipboard.paste(SELECTION).lines.select { |ln| ln =~ PROMPT }.map do |line|
+  line.gsub(/#{PROMPT}[^ ]+ ?/, "")
 end.join)
