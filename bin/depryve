@@ -1,13 +1,3 @@
 #!/usr/bin/env ruby
-
-require "clipboard"
-
-# Use X11 primary selection by default
-SELECTION = ARGV.first == "-c" ? :clipboard : :primary
-
-# RegEx to find irb/pry prompt
-PROMPT = /\A(irb|\[\d+\] pry)/
-
-Clipboard.copy(Clipboard.paste(SELECTION).lines.select { |ln| ln =~ PROMPT }.map do |line|
-  line.gsub(/#{PROMPT}[^ ]+ ?/, "")
-end.join)
+require "depryve"
+depryve ARGV
