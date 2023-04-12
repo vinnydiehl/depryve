@@ -9,15 +9,29 @@ Install with RubyGems:
 
     gem install depryve
 
-## Linux Support
+## X11 Selections
 
-That is to say, right now this only works well with Linux. It uses the X11
-primary clipboard (the one that text is copied to when you select it, and
-pasted with the middle mouse button). The output is sent to all clipboards.
-Support for other clipboards coming if there is demand.
+`depryve` reads your primary selection (the "middle click clipboard") by default;
+this is the "clipboard" that is copied to whenever you highlight text, making
+usage super easy; just highlight, run `depryve`, then paste wherever you
+please. If you would like `depryve` to read from your clipboard selection (the
+"Ctrl+C clipboard"), run `depryve -c`.
 
-## Contributing
+The output from `depryve` will be placed on all of your clipboards, so you may
+paste it with either Ctrl+V or middle click.
 
-If anyone wants to modify this to make it work better/with more setups, great.
-There's only 5 lines of code in here right now. It's MIT licensed, feel free to
-fork it. Maybe send a pull request.
+## From the REPL
+
+You may require `depryve` from an `irb` or `pry` session and run it at any time
+by running one of the included methods:
+
+```ruby
+require "depryve"
+
+# write your code...
+# whenever you want to copy something highlight it and:
+depryve
+
+# or, to run with the -c flag:
+depryve_c
+```
